@@ -1,0 +1,14 @@
+# Ignore rules for duplicate detection
+# Committed to git — shared across team and CI
+#
+# Format:
+#   MAGIC:value             — ignore this magic string
+#   DUPE:fnNameA/fnNameB    — ignore function-level dupe pair
+#   BLOCK:parentA/parentB   — ignore sub-block dupe pair
+#   TYPE:typeA/typeB        — ignore type overlap pair
+#   HOOK:hookName/fnName    — ignore hook reuse suggestion
+#
+# Examples:
+#   MAGIC:very-high         — not a real identifier, just an enum variant
+#   DUPE:LoginForm/RegisterForm  — intentionally similar, different domains
+#   TYPE:ModelStatus/ModelInfo   — keep separate for API boundary reasons

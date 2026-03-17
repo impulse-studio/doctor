@@ -1,0 +1,13 @@
+# Doctor — Disabled checks
+# Add a check name to disable it. Empty file = all checks run.
+#
+# Available checks:
+# react/file-naming
+# react/component-format
+# react/name-match
+# react/unused-files
+# react/duplicates
+# react/max-file-size
+# react/import-depth
+# react/tailwind-consistency
+# react/index-reexports
