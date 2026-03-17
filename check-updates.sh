@@ -193,7 +193,7 @@ main() {
   workflows_enabled=$(read_rc "WORKFLOWS_ENABLED" "false")
 
   if [ "$workflows_enabled" = "true" ] && [ -f ".github/workflows/doctor.yml" ]; then
-    if ! files_identical ".github/workflows/doctor.yml" "$DOWNLOAD_DIR/.github/workflows/doctor.yml"; then
+    if ! files_identical ".github/workflows/doctor.yml" "$DOWNLOAD_DIR/workflows/doctor.yml"; then
       info "  Changed: .github/workflows/doctor.yml"
       changes=1
     fi

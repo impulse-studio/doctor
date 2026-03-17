@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.2
+- fix: github workflow running in the origin repository
+
+
 ## 0.0.1
 - Gitignore support — checks skip files ignored by `.gitignore` via `git ls-files`
 - CI mode (`--ci`) — GitHub Actions `::error` / `::warning` annotations

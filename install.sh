@@ -287,7 +287,7 @@ install_workflows_interactive() {
 
   if ask_yes_no "Install GitHub CI workflow? (.github/workflows/doctor.yml)" "y"; then
     mkdir -p .github/workflows
-    cp "$DOWNLOAD_DIR/.github/workflows/doctor.yml" .github/workflows/doctor.yml
+    cp "$DOWNLOAD_DIR/workflows/doctor.yml" .github/workflows/doctor.yml
     WORKFLOWS_ENABLED="true"
     ok "Workflow installed"
   else
@@ -515,10 +515,10 @@ update_workflows() {
   enabled=$(read_rc "WORKFLOWS_ENABLED" "false")
 
   if [ "$enabled" != "true" ]; then
-    if [ -f "$DOWNLOAD_DIR/.github/workflows/doctor.yml" ]; then
+    if [ -f "$DOWNLOAD_DIR/workflows/doctor.yml" ]; then
       if ask_yes_no "GitHub CI workflow available but not installed. Install?" "n"; then
         mkdir -p .github/workflows
-        cp "$DOWNLOAD_DIR/.github/workflows/doctor.yml" .github/workflows/doctor.yml
+        cp "$DOWNLOAD_DIR/workflows/doctor.yml" .github/workflows/doctor.yml
         write_rc "WORKFLOWS_ENABLED" "true"
         ok "Workflow installed"
       else
@@ -528,7 +528,7 @@ update_workflows() {
     return
   fi
 
-  local remote_wf="$DOWNLOAD_DIR/.github/workflows/doctor.yml"
+  local remote_wf="$DOWNLOAD_DIR/workflows/doctor.yml"
   local local_wf=".github/workflows/doctor.yml"
 
   if [ ! -f "$local_wf" ]; then

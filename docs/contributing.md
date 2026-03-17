@@ -45,9 +45,8 @@ This will:
     react/               # React namespace
       *.sh               # Individual checks
       utils/             # Namespace-specific utilities (not checks)
-.github/
-  workflows/
-    doctor.yml           # CI workflow (uses --ci for annotations)
+workflows/
+  doctor.yml             # CI workflow template (installed to .github/workflows/)
 skills/
   react-best-practices/
     SKILL.md
