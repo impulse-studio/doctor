@@ -1,0 +1,9 @@
+# Doctor — Entry points
+# Files listed here are always considered "used" by the unused-files check.
+# One path per line, relative to project root. Supports glob patterns.
+#
+# Examples:
+#   src/main.tsx
+#   src/pages/**/*.tsx
+#   src/app/layout.tsx
+src/main.tsx

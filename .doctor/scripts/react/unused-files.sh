@@ -18,7 +18,21 @@ while IFS= read -r f; do
 done < <(doctor_list_files "$SRC_DIR" ts tsx | grep -v '\.d\.ts$')
 
 # --- Entry points (always considered used) ---
-entry_points=("$SRC_DIR/main.tsx" "$SRC_DIR/widget/widget-app.tsx")
+entry_points=()
+ENTRY_CONFIG="$DOCTOR_DIR/config/entry-points"
+if [[ -f "$ENTRY_CONFIG" ]]; then
+  while IFS= read -r line; do
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    line=$(echo "$line" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+    [[ -z "$line" ]] && continue
+    entry_points+=("$line")
+  done < "$ENTRY_CONFIG"
+fi
+
+# Fallback if no config or empty
+if [[ ${#entry_points[@]} -eq 0 ]]; then
+  entry_points=("$SRC_DIR/main.tsx")
+fi
 
 # --- Build set of imported file paths ---
 imported_set=$(mktemp)
@@ -30,11 +44,15 @@ for file in "${all_files[@]}"; do
   # Extract all import/export-from paths
   while IFS= read -r imp; do
     [[ -z "$imp" ]] && continue
-    # Skip package imports (not relative)
-    [[ "$imp" != ./* && "$imp" != ../* ]] && continue
-
-    # Raw resolved path (may contain ../)
-    raw="$file_dir/$imp"
+    # Resolve @/ alias to SRC_DIR/
+    if [[ "$imp" == @/* ]]; then
+      raw="$SRC_DIR/${imp#@/}"
+    elif [[ "$imp" == ./* || "$imp" == ../* ]]; then
+      raw="$file_dir/$imp"
+    else
+      # Skip package imports (not relative, not alias)
+      continue
+    fi
 
     # Try extensions: .ts, .tsx, /index.ts, /index.tsx
     for ext in ".ts" ".tsx" "/index.ts" "/index.tsx"; do
@@ -54,10 +72,10 @@ sort -u "$imported_set" -o "$imported_set"
 
 # --- Check each file ---
 for file in "${all_files[@]}"; do
-  # Skip entry points
+  # Skip entry points (unquoted $ep enables glob pattern matching)
   is_entry=false
   for ep in "${entry_points[@]}"; do
-    if [[ "$file" == "$ep" ]]; then
+    if [[ "$file" == $ep ]]; then
       is_entry=true
       break
     fi

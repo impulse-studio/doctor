@@ -14,6 +14,21 @@ react/max-file-size
 
 Empty file or no file = all checks run.
 
+## Entry points
+
+Edit `.doctor/config/entry-points` to declare which files are always considered "used" by the unused-files check. One path per line, relative to project root:
+
+```
+# Vite / React
+src/main.tsx
+
+# Next.js — all pages are entry points
+src/pages/**/*.tsx
+src/app/layout.tsx
+```
+
+Supports glob patterns (`*`, `**`). If the file is missing or empty, defaults to `src/main.tsx`.
+
 ## Update behavior
 
 When you re-run `install.sh`:

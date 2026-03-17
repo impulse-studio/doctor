@@ -20,16 +20,28 @@ You don't need a skill or any other configuration — just the scripts and the r
 
 ## Publishing a new version
 
+Interactive mode:
+
 ```bash
 bash publish.sh
 ```
 
+Non-interactive mode (AI-compatible):
+
+```bash
+bash publish.sh --bump patch --push "fix: github workflow" "feat: configurable entry points"
+```
+
+Options:
+- `--bump <patch|minor|major>` — version bump type (activates non-interactive mode)
+- `--push` — push to remote after commit+tag (no confirmation)
+- Positional arguments are changelog entries
+
 This will:
 
-1. Ask for bump type (patch / minor / major)
-2. Ask for changelog entries (empty line to finish)
-3. Update `VERSION` and `CHANGELOG.md`
-4. Commit, tag, and push
+1. Bump the version in `VERSION`
+2. Prepend entries to `CHANGELOG.md`
+3. Commit, tag, and push
 
 ## Project structure
 
@@ -38,6 +50,7 @@ This will:
   config/
     checks               # Disabled checks (one per line)
     dupe-ignore          # Duplicate detection ignore rules
+    entry-points         # Entry points for unused-files check
   run.sh                 # Main runner (executes all checks, --ci for annotations)
   utils/
     list-files.sh        # Shared file discovery (respects .gitignore)

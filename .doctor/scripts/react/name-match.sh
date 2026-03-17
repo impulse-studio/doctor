@@ -33,11 +33,11 @@ while IFS= read -r file; do
   name="${basename_f%.tsx}"
   expected_pascal=$(kebab_to_pascal "$name")
 
-  # Extract export default function name (macOS grep compatible)
-  actual=$(grep "^export default function " "$file" 2>/dev/null | head -1 | sed -E 's/^export default function ([A-Za-z0-9]+).*/\1/' || true)
+  # Extract export default [async] function name (macOS grep compatible)
+  actual=$(grep -E "^export default (async )?function " "$file" 2>/dev/null | head -1 | sed -E 's/^export default (async )?function ([A-Za-z0-9]+).*/\2/' || true)
 
   if [[ -z "$actual" ]]; then
-    echo "FAIL: $file — no 'export default function' found"
+    echo "FAIL: $file — no 'export default [async] function' found"
     ERRORS=$((ERRORS + 1))
   elif [[ "$actual" != "$expected_pascal" ]]; then
     echo "FAIL: $file — export is '$actual', expected '$expected_pascal'"
@@ -72,8 +72,8 @@ while IFS= read -r file; do
   expected_camel=$(kebab_to_camel "$name")
   expected_pascal=$(kebab_to_pascal "$name")
 
-  # Check for export default function
-  actual_fn=$(grep "^export default function " "$file" 2>/dev/null | head -1 | sed -E 's/^export default function ([a-zA-Z0-9]+).*/\1/' || true)
+  # Check for export default [async] function
+  actual_fn=$(grep -E "^export default (async )?function " "$file" 2>/dev/null | head -1 | sed -E 's/^export default (async )?function ([a-zA-Z0-9]+).*/\2/' || true)
 
   # Check for "export default <identifier>" (not function)
   actual_default=$(grep "^export default " "$file" 2>/dev/null | grep -v "function" | head -1 | sed -E 's/^export default ([a-zA-Z][a-zA-Z0-9]*).*/\1/' || true)

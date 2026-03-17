@@ -98,7 +98,7 @@ function deserializeFileData(d) {
 }
 
 // ─── Ignore Rules (committed to git, shared across team/CI) ─
-const IGNORE_PATH = join(fileURLToPath(import.meta.url), '..', '..', '..', 'config', 'dupe-ignore');
+const IGNORE_PATH = join(fileURLToPath(import.meta.url), '..', '..', '..', '..', 'config', 'dupe-ignore');
 
 function loadIgnoreRules() {
   const rules = { magic: new Set(), dupe: new Set(), block: new Set(), type: new Set(), hook: new Set() };

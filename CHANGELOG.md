@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.3
+- feat: configurable entry points via `.doctor/config/entry-points`
+- feat: `export default async function` support in component-format and name-match checks
+- feat: non-interactive publish mode (`--bump`, `--push` flags)
+
+
 ## 0.0.2
 - fix: github workflow running in the origin repository
 
