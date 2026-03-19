@@ -51,6 +51,7 @@ This will:
     checks               # Disabled checks (one per line)
     dupe-ignore          # Duplicate detection ignore rules
     entry-points         # Entry points for unused-files check
+    max-file-size        # Line count thresholds (default + per-file overrides)
   run.sh                 # Main runner (executes all checks, --ci for annotations)
   utils/
     list-files.sh        # Shared file discovery (respects .gitignore)

@@ -1,0 +1,20 @@
+# Doctor — Max file size limits
+# Controls the max-file-size check thresholds.
+#
+# Default limits (applied to all files):
+#   warn=350    # Lines before a warning is emitted
+#   fail=500    # Lines before a failure is emitted
+#
+# Per-file overrides:
+#   <glob-pattern> warn=<n> fail=<n>
+#
+# Use -1 for no limit (disables the check for that file/threshold).
+# Patterns are matched against file paths relative to project root.
+#
+# Examples:
+#   src/config/tailwind.ts          warn=-1 fail=-1
+#   src/components/big-form.tsx     warn=500 fail=700
+#   src/generated/**/*.ts           warn=-1 fail=-1
+
+warn=350
+fail=500

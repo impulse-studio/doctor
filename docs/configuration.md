@@ -29,6 +29,30 @@ src/app/layout.tsx
 
 Supports glob patterns (`*`, `**`). If the file is missing or empty, defaults to `src/main.tsx`.
 
+## Max file size
+
+Edit `.doctor/config/max-file-size` to configure line count thresholds. Default limits apply to all files, per-file overrides use glob patterns:
+
+```
+# Defaults
+warn=350
+fail=500
+
+# Config files can be long
+src/config/tailwind.ts              warn=-1 fail=-1
+
+# Big component but cap it at 700
+src/components/big-form.tsx         warn=500 fail=700
+
+# All generated files — no limit
+src/generated/**/*.ts               warn=-1 fail=-1
+```
+
+- `warn=N` — emit a warning when a file exceeds N lines
+- `fail=N` — emit a failure when a file exceeds N lines
+- `-1` — no limit (disables the threshold)
+- Last matching pattern wins when multiple patterns match
+
 ## Update behavior
 
 When you re-run `install.sh`:

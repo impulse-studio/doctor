@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.4
+- feat: configurable max file size via `.doctor/config/max-file-size` with per-file overrides and glob patterns
+
+
 ## 0.0.3
 - feat: configurable entry points via `.doctor/config/entry-points`
 - feat: `export default async function` support in component-format and name-match checks
